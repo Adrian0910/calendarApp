@@ -8,7 +8,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2'
 
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../../actions/events';
+import { eventClearActiveEvent, eventStartAddNew, eventStartUpdate } from '../../actions/events';
 
 
 //Styles
@@ -107,20 +107,12 @@ export const CalendarModal = () => {
       return setTitleValid(false);
     }
 
-    //TODO: realizar grabacion
 
     if( activeEvent ) {
-      dispatch( eventUpdated( formValues ) );
+      dispatch( eventStartUpdate( formValues ) );
     } else {
 
-      dispatch( eventAddNew({
-        ...formValues,
-        id: new Date().getTime(),
-        user: {
-          _id: '123',
-          name: 'Adrian'
-        }
-      }) );
+      dispatch( eventStartAddNew(formValues) );
   }
 
     setTitleValid(true);
